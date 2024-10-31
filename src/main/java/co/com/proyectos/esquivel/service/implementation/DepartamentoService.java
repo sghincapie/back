@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -33,13 +35,20 @@ public class DepartamentoService implements IDepartamentoService {
     Optional<DepartamentoEntity> optDepartamento = departamentoRepository.findById(id);
     if (optDepartamento.isPresent()) {
       return departamentoMapper.mapToDto(optDepartamento.get());
-//      Departamento departamento = new Departamento();
-//      departamento.setId(optDepartamento.get().getId());
-//      departamento.setNombre(optDepartamento.get().getNombre());
-//      return departamento;
     } else {
       log.info("No se encontró el departamento {}", id);
       throw new Exception("No se encontró el departamento " + id);
+    }
+  }
+
+  @Override
+  public List<Departamento> getDepartamentos() throws Exception {
+    List<DepartamentoEntity> departamentoEntityList = departamentoRepository.findAll();
+    if (departamentoEntityList.isEmpty()) {
+      log.info("No se encontraron departamentos");
+      throw new Exception("No se encontraron departamentos");
+    } else {
+      return departamentoMapper.mapToDto(departamentoEntityList);
     }
   }
 }

@@ -5,6 +5,8 @@ import co.com.proyectos.esquivel.dto.Departamento;
 import co.com.proyectos.esquivel.jpa.entity.DepartamentoEntity;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 
 @Mapper(componentModel = "spring")
 public interface DepartamentoMapper {
@@ -16,4 +18,7 @@ public interface DepartamentoMapper {
    * @return Departamento
    */
   Departamento mapToDto(DepartamentoEntity entidad);
+
+
+  List<Departamento> mapToDto(List<DepartamentoEntity> departamentos);
 }
